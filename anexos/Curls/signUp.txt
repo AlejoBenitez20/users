@@ -1,0 +1,24 @@
+curl --location 'http://localhost:8080/sign-up' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "String",
+    "email": "albeakl166@hotmaik.com",
+    "password": "a2a3sDddfdf",
+    "phones": [
+        {
+            "number": 3214287363,
+            "citycode": 1,
+            "contrycode": "152"
+        },
+        {
+            "number": 3214287365,
+            "citycode": 3,
+            "contrycode": "153"
+        },
+        {
+            "number": 3214287364,
+            "citycode": 4,
+            "contrycode": "155"
+        }
+    ]
+}'

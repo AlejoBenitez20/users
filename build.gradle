@@ -1,0 +1,46 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '2.5.14'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+}
+
+group = 'com.global'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation group: 'io.swagger', name: 'swagger-annotations', version: '1.5.0'
+	implementation group: 'javax.validation', name: 'validation-api', version: '2.0.0.Final'
+	implementation 'org.hibernate.validator:hibernate-validator:7.0.2.Final'
+	implementation group: 'jakarta.persistence', name: 'jakarta.persistence-api', version: '2.2.3'
+	implementation group: 'org.springframework.data', name: 'spring-data-jpa', version: '2.1.8.RELEASE'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	compileOnly('org.projectlombok:lombok')
+	annotationProcessor('org.projectlombok:lombok')
+	testCompileOnly('org.projectlombok:lombok')
+	testAnnotationProcessor('org.projectlombok:lombok')
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+	implementation 'io.jsonwebtoken:jjwt-impl:0.11.2'
+	implementation 'io.jsonwebtoken:jjwt-jackson:0.11.2'
+	implementation group: 'org.springframework.security', name: 'spring-security-crypto', version: '5.4.0'
+	testImplementation group: 'org.mockito', name: 'mockito-core', version: '2.24.0'
+	testImplementation group: 'org.meanbean', name: 'meanbean', version: '2.0.3'
+
+
+
+
+	runtimeOnly 'com.h2database:h2'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.boot:spring-boot-starter-web'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

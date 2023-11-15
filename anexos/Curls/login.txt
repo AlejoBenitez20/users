@@ -1,0 +1,3 @@
+curl --location 'http://localhost:8080/login' \
+--header 'Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbGJlYWtsMTY2QGhvdG1haWsuY29tIiwiaWF0IjoxNzAwMDU1NzAwLCJleHAiOjE3MDAwNTkzMDB9.RI7J_XKEZkn3qP61LQMhQBEqkHvTx430YS4nncOUn1k' \
+--data ''
