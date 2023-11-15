@@ -1,0 +1,21 @@
+server:
+  address: 0.0.0.0
+  port: 8080
+
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    password: ''
+    platform: h2
+    url: jdbc:h2:mem:~/users
+    username: sa
+  h2:
+    console:
+      enabled: true
+      path: /h2
+
+security:
+  auth:
+    token-secret: FC84F7573920D5949E8D8929DC6064F87A6180E92E9BC1A5E07612C57D699A08
+    token-validity-seconds: 3600000
+
