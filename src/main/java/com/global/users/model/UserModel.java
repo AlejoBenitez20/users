@@ -1,12 +1,12 @@
 package com.global.users.model;
 
-import lombok.Builder;
-import lombok.Data;
+import com.global.users.dto.PhoneDto;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -37,6 +37,14 @@ public class UserModel {
 
     @Column(name = "is_active")
     private Boolean isActive = null;
+
+    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PhoneModel> phoneModelList = new ArrayList<>();
+
+    public void addPhone(PhoneModel phone) {
+        phoneModelList.add(phone);
+        phone.setUserId(this);
+    }
 
 
 }

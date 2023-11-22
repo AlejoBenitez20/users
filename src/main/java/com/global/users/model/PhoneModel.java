@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.math.BigInteger;
 import java.util.UUID;
 
 @Entity
@@ -18,8 +17,9 @@ public class PhoneModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id = null;
 
-    @Column(name = "user_id")
-    private UUID userId = null;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserModel userId;
 
     @Column(name = "number")
     private long number = 0;

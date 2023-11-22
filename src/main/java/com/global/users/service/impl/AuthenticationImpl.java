@@ -2,13 +2,11 @@ package com.global.users.service.impl;
 
 import com.global.users.constans.FieldsConstans;
 import com.global.users.dto.LoginResponseDto;
-import com.global.users.dto.PhoneDto;
 import com.global.users.dto.SignUpRequestDto;
 import com.global.users.dto.SignUpResponseDto;
 import com.global.users.exception.UserExceptions;
 import com.global.users.mapper.ModelDTOMapper;
 import com.global.users.model.UserModel;
-import com.global.users.repository.PhonesRepository;
 import com.global.users.repository.UsersRepository;
 import com.global.users.security.JwtTokenProvider;
 import com.global.users.service.serv.AuthenticationService;
@@ -19,11 +17,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-import java.util.UUID;
-
 
 @Service
 @Slf4j
@@ -36,8 +29,6 @@ public class AuthenticationImpl implements AuthenticationService {
 
     private UsersRepository usersRepository;
 
-    private PhonesRepository phonesRepository;
-
     private JwtTokenProvider jwtTokenProvider;
 
     @Transactional
@@ -49,8 +40,6 @@ public class AuthenticationImpl implements AuthenticationService {
         validateData( signUpRequestDto );
 
         final var resultSaveUser = usersRepository.save( modelDTOMapper.fromSignUpRequestDtoToUserModel( signUpRequestDto ) );
-
-        savePhones( signUpRequestDto.getPhoneDtos(), resultSaveUser.getId() );
 
         return buildResponseSignUp( resultSaveUser, signUpRequestDto );
 
@@ -94,26 +83,6 @@ public class AuthenticationImpl implements AuthenticationService {
 
     }
 
-    private void savePhones(List<PhoneDto> phoneDtoList, UUID userId){
-
-        phoneDtoList.stream().forEach(phoneDto -> {
-
-            log.info("[AuthenticationImpl][savePhones] Saving phone: {} ",phoneDto.getNumber());
-
-            try {
-
-                phonesRepository.save( modelDTOMapper.fromPhoneDtoToPhoneModel( phoneDto, userId ) );
-
-            }catch (Exception e){
-
-                throw new UserExceptions( HttpStatus.BAD_REQUEST, "An error has ocurred while save phone "+ phoneDto.getNumber() +": "+e, 400);
-
-            }
-
-        });
-
-    }
-
     @Override
     public LoginResponseDto login(String token) {
 
@@ -128,11 +97,7 @@ public class AuthenticationImpl implements AuthenticationService {
 
         updateLastLoginDate( userDataUpd );
 
-        final var phoneData = phonesRepository.findByUserId(userData.getId())
-                .orElseThrow(() ->
-                        new UserExceptions( HttpStatus.BAD_REQUEST, "An error has ocurred while find phone by userId (login).", 400));
-
-        return modelDTOMapper.fromUserModelAndPhoneModelToLoginResponseDto(userData, phoneData, token);
+        return modelDTOMapper.fromUserModelAndPhoneModelToLoginResponseDto(userData, token);
 
     }
 

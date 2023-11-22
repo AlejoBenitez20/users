@@ -1,11 +1,7 @@
 package com.global.users.web.api;
 
-import com.global.users.dto.LoginResponseDto;
-import com.global.users.dto.SignUpRequestDto;
-import com.global.users.dto.SignUpResponseDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 import static org.junit.jupiter.api.Assertions.*;
 

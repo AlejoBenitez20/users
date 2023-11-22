@@ -1,8 +1,6 @@
 package com.global.users.repository;
 
 import com.global.users.model.PhoneModel;
-import com.global.users.model.UserModel;
-import org.hibernate.type.UUIDCharType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface UsersRepository extends JpaRepository<UserModel, String> {
 
-    @Query("SELECT c FROM UserModel c WHERE c.email = ?1")
+    @Query("SELECT c FROM UserModel c LEFT JOIN FETCH c.phoneModelList WHERE c.email = ?1")
     Optional<UserModel> findByEmail(String email);
 
 }

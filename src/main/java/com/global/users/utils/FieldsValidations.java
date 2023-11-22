@@ -4,11 +4,7 @@ import com.global.users.exception.UserExceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
 import java.util.Objects;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

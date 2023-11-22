@@ -4,7 +4,6 @@ import com.global.users.dto.PhoneDto;
 import com.global.users.dto.SignUpRequestDto;
 import com.global.users.model.PhoneModel;
 import com.global.users.model.UserModel;
-import com.global.users.service.impl.AuthenticationImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -49,23 +48,6 @@ class ModelDTOMapperTest {
     }
 
     @Test
-    void fromPhoneDtoToPhoneModel() {
-
-        // Given
-        PhoneDto phoneDto = new PhoneDto();
-        phoneDto.setContrycode("12");
-        phoneDto.setCitycode(1);
-        phoneDto.setNumber(32142873);
-
-        // When
-        final var result = modelDTOMapper.fromPhoneDtoToPhoneModel(phoneDto, UUID.randomUUID());
-
-        // Then
-        assertNotNull(result);
-
-    }
-
-    @Test
     void fromUserModelAndPhoneModelToLoginResponseDto() {
 
         // Given
@@ -78,17 +60,8 @@ class ModelDTOMapperTest {
         userModel.setLastLogin("03-03-2023");
         userModel.setIsActive(true);
 
-        List<PhoneModel> phoneModelList = new ArrayList<>();
-        PhoneModel phoneModel = new PhoneModel();
-        phoneModel.setId(UUID.randomUUID());
-        phoneModel.setUserId(UUID.randomUUID());
-        phoneModel.setNumber(3214287);
-        phoneModel.setCityCode(1);
-        phoneModel.setContryCode("12");
-        phoneModelList.add(phoneModel);
-
         // When
-        final var result = modelDTOMapper.fromUserModelAndPhoneModelToLoginResponseDto(userModel, phoneModelList,"dasdsds");
+        final var result = modelDTOMapper.fromUserModelAndPhoneModelToLoginResponseDto(userModel, "dasdsds");
 
         // Then
         assertNotNull(result);
@@ -102,7 +75,6 @@ class ModelDTOMapperTest {
         List<PhoneModel> phoneModelList = new ArrayList<>();
         PhoneModel phoneModel = new PhoneModel();
         phoneModel.setId(UUID.randomUUID());
-        phoneModel.setUserId(UUID.randomUUID());
         phoneModel.setNumber(3214287);
         phoneModel.setCityCode(1);
         phoneModel.setContryCode("12");
@@ -144,24 +116,6 @@ class ModelDTOMapperTest {
     }
 
     @Test
-    void fromPhoneDtoToPhoneModelError() {
-
-        // Given
-        PhoneDto phoneDto = new PhoneDto();
-        phoneDto.setContrycode("12");
-        phoneDto.setCitycode(1);
-        phoneDto.setNumber(32142873);
-
-        // When
-
-        // Then
-        assertThrows(Exception.class,() -> {
-            modelDTOMapper.fromPhoneDtoToPhoneModel(null, null);
-        });
-
-    }
-
-    @Test
     void fromUserModelAndPhoneModelToLoginResponseDtoError() {
 
         // Given
@@ -177,7 +131,6 @@ class ModelDTOMapperTest {
         List<PhoneModel> phoneModelList = new ArrayList<>();
         PhoneModel phoneModel = new PhoneModel();
         phoneModel.setId(UUID.randomUUID());
-        phoneModel.setUserId(UUID.randomUUID());
         phoneModel.setNumber(3214287);
         phoneModel.setCityCode(1);
         phoneModel.setContryCode("12");
@@ -187,7 +140,7 @@ class ModelDTOMapperTest {
 
         // Then
         assertThrows(Exception.class,() -> {
-            modelDTOMapper.fromUserModelAndPhoneModelToLoginResponseDto(null, null,null);
+            modelDTOMapper.fromUserModelAndPhoneModelToLoginResponseDto(null, null);
         });
 
     }
@@ -199,7 +152,6 @@ class ModelDTOMapperTest {
         List<PhoneModel> phoneModelList = new ArrayList<>();
         PhoneModel phoneModel = new PhoneModel();
         phoneModel.setId(UUID.randomUUID());
-        phoneModel.setUserId(UUID.randomUUID());
         phoneModel.setNumber(3214287);
         phoneModel.setCityCode(1);
         phoneModel.setContryCode("12");

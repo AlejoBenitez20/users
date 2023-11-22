@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Component
 public class ModelDTOMapper {
@@ -30,9 +29,20 @@ public class ModelDTOMapper {
             userModel.setCreated(Date.getDateNow());
             userModel.setIsActive(true);
 
+            signUpRequestDto.getPhoneDtos().forEach(phoneDto -> {
+
+                PhoneModel phoneModel = new PhoneModel();
+                phoneModel.setNumber( phoneDto.getNumber() );
+                phoneModel.setCityCode( phoneDto.getCitycode() );
+                phoneModel.setContryCode( phoneDto.getContrycode() );
+
+                userModel.addPhone(phoneModel);
+
+            });
+
         }catch (Exception e){
 
-            throw new UserExceptions( HttpStatus.BAD_REQUEST, "An error has ocurred while mapper data (fromSignUpRequestDtoToUserModel).", 400);
+            throw new UserExceptions( HttpStatus.BAD_REQUEST, "An error has ocurred while mapper data (fromSignUpRequestDtoToUserModel)." + e, 400);
 
         }
 
@@ -40,28 +50,7 @@ public class ModelDTOMapper {
 
     }
 
-    public PhoneModel fromPhoneDtoToPhoneModel(PhoneDto phoneDto, UUID userId){
-
-        PhoneModel phoneModel = new PhoneModel();
-
-        try {
-
-            phoneModel.setUserId(userId);
-            phoneModel.setNumber(phoneDto.getNumber());
-            phoneModel.setCityCode(phoneDto.getCitycode());
-            phoneModel.setContryCode(phoneDto.getContrycode());
-
-        }catch (Exception e){
-
-            throw new UserExceptions( HttpStatus.BAD_REQUEST, "An error has ocurred while mapper data ( fromPhoneDtoToPhoneModel ): "+e, 400);
-
-        }
-
-        return phoneModel;
-
-    }
-
-    public LoginResponseDto fromUserModelAndPhoneModelToLoginResponseDto(UserModel userModel, List<PhoneModel> phoneModelList, String token){
+    public LoginResponseDto fromUserModelAndPhoneModelToLoginResponseDto(UserModel userModel,  String token){
 
         LoginResponseDto loginResponseDto = new LoginResponseDto();
 
@@ -75,7 +64,7 @@ public class ModelDTOMapper {
             loginResponseDto.setName( userModel.getName() );
             loginResponseDto.setEmail( userModel.getEmail());
             loginResponseDto.setPassword( userModel.getPassword() );
-            loginResponseDto.setPhoneDtos(fromPhoneModelToPhoneDto(phoneModelList));
+            loginResponseDto.setPhoneDtos(fromPhoneModelToPhoneDto(userModel.getPhoneModelList()));
 
         }catch (Exception e){
 

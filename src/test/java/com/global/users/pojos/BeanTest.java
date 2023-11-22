@@ -1,9 +1,8 @@
-package com.global.users.Pojos;
+package com.global.users.pojos;
 
 import com.global.users.dto.ErrorDetailDto;
 import com.global.users.dto.ErrorDto;
 import com.global.users.dto.PhoneDto;
-import com.global.users.exception.UserExceptions;
 import org.junit.jupiter.api.Test;
 import org.meanbean.lang.Factory;
 import org.meanbean.test.BeanTester;
